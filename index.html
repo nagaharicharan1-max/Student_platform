@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Result Analyzer – DAA Visualizer</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="style.css"></head><body>
+<nav><h3>📊 Result Analyzer</h3>
+<button data-t="dash" class="on">Dashboard</button><button data-t="stu">Students</button><button data-t="sort">Sorting</button>
+<button data-t="search">Binary Search</button><button data-t="range">Range Query</button><button data-t="graph">Graph (BFS/DFS)</button><button data-t="cmp">Comparison</button>
+<button class="alt" id="theme">🌓 Theme</button></nav>
+<main>
+<section id="dash" class="on"><h1>Dashboard</h1><div class="cards" id="cards"></div><br>
+<div class="grid"><div class="panel"><h3>Student Performance (%)</h3><canvas id="c1"></canvas></div><div class="panel"><h3>Subject Average</h3><canvas id="c2"></canvas></div>
+<div class="panel"><h3>Grade Distribution</h3><canvas id="c3"></canvas></div><div class="panel"><h3>Subject Relationship (correlation)</h3><canvas id="c4"></canvas></div></div></section>
+
+<section id="stu"><h1>Students</h1><div class="panel"><h3 id="ftitle">Add Student</h3><div class="row">
+<input id="name" placeholder="Name"><input id="roll" placeholder="Roll No"><input id="mathematics" type="number" placeholder="Maths"><input id="physics" type="number" placeholder="Physics">
+<input id="chemistry" type="number" placeholder="Chemistry"><input id="english" type="number" placeholder="English"><input id="computer" type="number" placeholder="CS">
+<button id="save">Save</button><button class="alt" id="clear">Clear</button></div><p class="note" id="msg"></p></div>
+<div class="panel"><input id="filter" placeholder="Filter by name / roll…"><div class="scroll"><table id="stable"></table></div></div></section>
+
+<section id="sort"><h1>Sorting</h1><div class="panel"><div class="row"><select id="s-algo"><option value="bubble">Bubble Sort</option><option value="selection">Selection Sort</option><option value="merge">Merge Sort</option><option value="quick">Quick Sort</option></select>
+<select class="fields" id="s-field"></select><select id="s-order"><option value="desc">Descending</option><option value="asc">Ascending</option></select>
+<button id="s-go">Sort</button><button id="s-anim" class="alt">Animate</button></div>
+<div id="s-info" class="note"></div><div id="s-bars" class="bars"></div><div id="s-out"></div></div></section>
+
+<section id="search"><h1>Binary Search</h1><div class="panel"><p class="note">Data is first sorted (Merge Sort). Each step halves the interval [low, high].</p><div class="row">
+<select id="b-field"><option value="id">Student ID</option><option value="roll">Roll Number</option><option value="total">Total Marks</option><option value="percentage">Percentage</option></select>
+<input id="b-val" placeholder="Target"><button id="b-go">Search</button></div><div id="b-info"></div><div id="b-cells" class="cells"></div><div id="b-steps"></div></div></section>
+
+<section id="range"><h1>Range Query</h1><div class="panel"><p class="note">Lower bound = first value ≥ min. Upper bound = first value &gt; max. Answer = items between the two positions.</p><div class="row">
+<select class="fields" id="r-field"></select><input id="r-min" type="number" value="400" placeholder="Min"><input id="r-max" type="number" value="500" placeholder="Max"><button id="r-go">Run</button></div>
+<div id="r-info"></div><div id="r-cells" class="cells"></div><div id="r-out"></div></div></section>
+
+<section id="graph"><h1>Subject Graph</h1><div class="panel"><p class="note">Vertices = subjects. Edge weight = Pearson correlation of marks (edge kept if |r| ≥ threshold).</p><div class="row">
+<select id="g-start"></select><select id="g-method"><option value="bfs">BFS (queue)</option><option value="dfs">DFS (stack)</option></select>
+<input id="g-th" type="number" step="0.1" value="0.3" style="width:80px"><button id="g-go">Traverse</button></div><div id="g-info" class="note"></div><svg id="g-svg" viewBox="0 0 500 360"></svg></div></section>
+
+<section id="cmp"><h1>Algorithm Comparison</h1><div class="panel"><table><tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th></tr>
+<tr><td>Bubble Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr><tr><td>Selection Sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+<tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td></tr><tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n)</td></tr>
+<tr><td>Binary Search</td><td>O(1)</td><td>O(log n)</td><td>O(log n)</td><td>O(1)</td></tr></table></div>
+<div class="panel"><h3>Run all sorts on the same data</h3><div class="row"><select class="fields" id="m-field"></select><button id="m-go">Compare</button></div><div id="m-out"></div></div></section>
+</main>
+<script src="script.js"></script></body></html>
